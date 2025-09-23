@@ -1,4 +1,5 @@
-/*- In copy operation make size of each array same or else it will through error.
+/*- Two Condition: 1.same size 2.same data type
+- In copy operation make size of each array same or else it will through error.
 - Arrray operations should be done in procedural block*/
 
 module tb ();
