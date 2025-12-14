@@ -1,7 +1,7 @@
 /* - Static Array known as fixed size array.
 - The size is known before compilation time.
 - If you haven't initialized the array, it will take the default value. The default value for the bit type is zero.
-- To display all the elements in the array %0p format specifier is used.  /
+- To display all the elements in the array %0p format specifier is used.  */
 
 //Static Array
 
