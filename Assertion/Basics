@@ -1,1 +1,7 @@
-#basic
+/*    #basic
+Type of assertion:
+  1.Simple immediate assertion:               assert
+  2.Observed deffered immediate assertion:    assert #0
+  3.Final deffered immediate assertion:       assert final
+  4.Concurrent assertion:                     assert property
+*/
