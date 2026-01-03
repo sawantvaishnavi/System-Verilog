@@ -5,3 +5,54 @@ Type of assertion:
   3.Final deffered immediate assertion:       assert final
   4.Concurrent assertion:                     assert property
 */
+/*
+
+  Rules of Assertion:
+
+  Rule 1:
+
+  1. Simple Immediate Assertion (sia)  -->  Require Procedural block
+    It could be either
+      1: initial
+          begin
+          end
+      2:  always@(*)  / always@(posedge clk)  /  always_comb  /  always_ff
+            begin
+            end
+
+  2. odia + fdia  -->  do not require procedural block for combinational ckt
+                        require procedural block for sequential
+
+  Rule 2: Pass/Fail Action
+
+    1. sia --> supports multiple pass / fail action
+    2. odia + fdia  --> supports single pass / fail
+
+*/
+/*
+Expression:
+
+1. sia :       assert ( expression of expected behaviour)  $info ("pass action") ; else $error ("fail action");
+2.odia :       assert #0 ( )  $info ("pass action") ; else $error ("fail action");
+3.fdia :       assert final ( )  $info ("pass action") ; else $error ("fail action");
+
+
+*/
+/*
+Disabling Assertion: 1.Specific assertion check  2.All assertion check
+
+1. $assertoff();
+   $asserton();
+
+2. sia:  if-else, case
+   dia:  disable A1;
+
+*/
+
+
+
+
+
+
+
+
