@@ -49,6 +49,14 @@ Disabling Assertion: 1.Specific assertion check  2.All assertion check
 
 */
 
+/*
+Format of concurrent Assertion:
+   1.  assert property (@ (posedge clk)  expression )  pass/fail action;         //here expression is evaluated at each positive edge of clock, this might not be needed every time
+
+Restrict the assertion by evaluating only once:
+   1. initial assert property (. . expression . . )  pass/fail               // initial will execute only once
+   2. assert property ( @(posedge clk)  $rose(temp) 1 ->     expression  )   pass/ fail     // creating temporary variable temp which is high for posedge of clk only once
+*/
 
 
 
