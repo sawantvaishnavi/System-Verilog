@@ -47,17 +47,26 @@ Disabling Assertion: 1.Specific assertion check  2.All assertion check
 2. sia:  if-else, case
    dia:  disable A1;
 
+Disabling Assertion at specific condition: 
+ A2: assert property ( @(posedge clk) disable iff(rst)    req |=> ack )$info("Suc at %0t",$time);       //if reset is high then disble the following assertion
+
 */
 
 /*
-Format of concurrent Assertion:
-   1.  assert property (@ (posedge clk)  expression )  pass/fail action;         //here expression is evaluated at each positive edge of clock, this might not be needed every time
+Format of concurrent Assertion: 
+   1. Name:  assert property (@ (posedge clk)  expression )  $info(pass action); else $error(fail action);         //here expression is evaluated at each positive edge of clock, this might not be needed every time
 
 Restrict the assertion by evaluating only once:
-   1. initial assert property (. . expression . . )  pass/fail               // initial will execute only once
-   2. assert property ( @(posedge clk)  $rose(temp) 1 ->     expression  )   pass/ fail     // creating temporary variable temp which is high for posedge of clk only once
+   2. initial  Name: assert property (. . expression . . )  pass/fail               // initial will execute only once
+   3. assert property ( @(posedge clk)  $rose(temp) 1 ->     expression  )   pass/ fail     // creating temporary variable temp which is high for posedge of clk only once
 */
 
+/*
+Concurrent assertion required valid clock edge to evaluate an expression.
+Uderstanding clock edges: it can be -> @posedge / @negedge / @edge (any edge)
+
+ Name:  assert property (@ (clockedge where signal is evaluating)  expression )  $info(pass action); $error(fail action); 
+*/
 
 
 
