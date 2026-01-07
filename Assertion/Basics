@@ -63,7 +63,7 @@ Restrict the assertion by evaluating only once:
 
 /*
 Concurrent assertion required valid clock edge to evaluate an expression.
-Uderstanding clock edges: it can be -> @posedge / @negedge / @edge (any edge)
+Uderstanding clock edges: it can be -> @(posedge clk) / @(negedge clk) / @(edge clk) (any edge)
 
  Name:  assert property (@ (clockedge where signal is evaluating)  expression )  $info(pass action); $error(fail action); 
 */
