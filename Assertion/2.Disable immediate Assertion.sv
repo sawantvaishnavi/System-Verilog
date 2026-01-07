@@ -43,7 +43,7 @@ module tb;
     A2: assert (b == 1'b1)  $info("Sucess A2 at %0t", $time); else $error("Fail A2 at %0t", $time);
   end
   
-  Selectively disabling assertion using if in simple immediate assertion
+  //Selectively disabling assertion using if in simple immediate assertion
   always@(*) begin
     if (rst == 1)
     A3: assert (c== 1'b1) $info("Sucess A3 at %0t", $time); else $error("Fail A3 at %0t", $time);
