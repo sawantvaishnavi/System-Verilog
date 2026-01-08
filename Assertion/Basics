@@ -93,6 +93,24 @@ Used to detect falling edge of signal
 if gating is 1 -> then past will behave exactly as a previous case where we do not have any getting.  (normal case)
 if enable is 0 ->  then in that case pass function will return the value that we have for the past function in the previous execution.   (just like clock gating)
 So in an entire simulation, if past is executed at least once, then pass function will return that value when getting is zero.
+
+5.$stable: 
+if there is no change between current value and previous valune then output will be 1 else 0.
+
+6. $changed:
+if there is change between current value and previous valune then output will be 1 else 0.
+
+//One hot basically means we should have only single bit with a value of 1 in the case of multiple bit signal.
+7.$onehot:
+onehot will return true (1) only when any one bit have value 1 while rest bits should be 0.
+
+//onehot we usually find in the encoding of an FSM and the initial value for state is always all zero. 
+//So that should not lead to the failure because we ourself have initialized a variable to a value of zero.
+//So to ignore a failure when we have all zeros in a signal, we have onehotzero.
+
+8.$onehot0
+So this will return true if we have all zeros in a signal and for the rest of the cases it will return True only when any one bit have a value of one.
+
 */
 
 
