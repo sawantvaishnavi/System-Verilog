@@ -68,6 +68,33 @@ Uderstanding clock edges: it can be -> @(posedge clk) / @(negedge clk) / @(edge 
  Name:  assert property (@ (clockedge where signal is evaluating)  expression )  $info(pass action); $error(fail action); 
 */
 
+/*
+implication operator:
+1. overlapping
+2. non overlapping
+*/
+
+/* System Task:
+1. $sampled:
+We already know concurrent assertion evaluates an expression by considering the value that exists in the Preponed region.
+Now if we use info, monitor, strobe or any other reporting macros, all of them are executed in an reactive region.
+So if you try to print the value of a variable utilizing a reporting macros, you will be getting the value from a reactive region instead of a preponed region.
+
+2. $rose :
+This is used to detect whether signal have a positive edge only once.
+
+3. $fell :
+Used to detect falling edge of signal
+
+4. $past:
+ Used to acess the values of signal from previous clock. the comand is having 4 arguments:
+   $past (signal, no. of clock ticks, gating, edge);
+
+if gating is 1 -> then past will behave exactly as a previous case where we do not have any getting.  (normal case)
+if enable is 0 ->  then in that case pass function will return the value that we have for the past function in the previous execution.   (just like clock gating)
+So in an entire simulation, if past is executed at least once, then pass function will return that value when getting is zero.
+*/
+
 
 
 
