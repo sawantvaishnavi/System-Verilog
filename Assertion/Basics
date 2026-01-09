@@ -80,6 +80,8 @@ We already know concurrent assertion evaluates an expression by considering the 
 Now if we use info, monitor, strobe or any other reporting macros, all of them are executed in an reactive region.
 So if you try to print the value of a variable utilizing a reporting macros, you will be getting the value from a reactive region instead of a preponed region.
 
+in case of  multibit $rose, $fell lsb bits are checked.
+
 2. $rose :
 This is used to detect whether signal have a positive edge only once.
 
@@ -110,6 +112,19 @@ onehot will return true (1) only when any one bit have value 1 while rest bits s
 
 8.$onehot0
 So this will return true if we have all zeros in a signal and for the rest of the cases it will return True only when any one bit have a value of one.
+
+9. $onecold: 
+only one bit should be zero then true else false.
+compliment of onecold encoding is onehot encoding.
+
+10. $isunkown:
+This is used to check if any bit of our signal have an undefined or high impedance value (x/z).
+
+11. $countbits:
+return the number of bits which have a matching value.
+So count bit have two arguments. First one is the signal itself and second one is the value that we are interested in.
+
+12. $countones:
 
 */
 
