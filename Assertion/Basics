@@ -129,7 +129,11 @@ So count bit have two arguments. First one is the signal itself and second one i
 */
 
 /*
-Delay Operator
+Delay Operator:
+
+1. Constant Delay: ##n  is used where n is number of clock cycles
+2. Variable : ##[min:max]  Signal will be high between min and max
+3. Unbound: ##[ : $]  mention starting clock tick. somewhere in simulation signal will be high
 */
 
 
