@@ -36,7 +36,6 @@ Expression:
 2.odia :       assert #0 ( )  $info ("pass action") ; else $error ("fail action");
 3.fdia :       assert final ( )  $info ("pass action") ; else $error ("fail action");
 
-
 */
 /*
 Disabling Assertion: 1.Specific assertion check  2.All assertion check
@@ -70,8 +69,9 @@ Uderstanding clock edges: it can be -> @(posedge clk) / @(negedge clk) / @(edge 
 
 /*
 implication operator:
-1. overlapping
-2. non overlapping
+1. overlapping:      |->   The evaluation of the consequent starts immediately on the same clock cycle if the antecedent holds true.
+2. non overlapping:  |=>  if the antecedent (left side) is true at a clock edge, the consequent (right side) must be true on the next clock edge, 
+                          ensuring the trigger and response don't happen in the same cycle. 
 */
 
 /* System Task:
@@ -89,7 +89,7 @@ This is used to detect whether signal have a positive edge only once.
 Used to detect falling edge of signal
 
 4. $past:
- Used to acess the values of signal from previous clock. the comand is having 4 arguments:
+ Used to acess the values of signal from previous clock. the command is having 4 arguments:
    $past (signal, no. of clock ticks, gating, edge);
 
 if gating is 1 -> then past will behave exactly as a previous case where we do not have any getting.  (normal case)
