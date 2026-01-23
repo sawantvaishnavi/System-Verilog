@@ -136,6 +136,13 @@ Delay Operator:
 3. Unbound: ##[ : $]  mention starting clock tick. somewhere in simulation signal will be high
 */
 
+/*
+Repetion Operator:
+
+1.Consecutive:
+2.Non-Consecutive:
+*/
+
 
 
 
