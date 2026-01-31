@@ -1,5 +1,7 @@
+//////////////// and example ////////////////
 Q1. If start rises, then in the next clock cycle: a must be HIGH for 2 consecutive cycles, b must be HIGH for 2 consecutive cycles, both must happen together
-sequence sa;
+Ans.
+ sequence sa;
  a[*2];
 endsequence 
 sequence sb;
@@ -35,6 +37,9 @@ b is high for 2 cycles (starting at SAME RHS start)
 They may or may not be high in the same cycle
 These are NOT equivalent
 
+//////////////// or & not ////////////////
+Q4. If req is asserted, then either gnt or wait must be high, and err must NOT be high in the same clock cycle.
+ Ans.
+ assert property (@(posedge clk) req |-> ((gnt or wait) and not err));
 
-Q4.
      
