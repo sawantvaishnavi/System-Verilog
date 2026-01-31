@@ -149,9 +149,9 @@ Boolean Operator:
 3.not
 
 Matching Operator:
-1.throughout
-2.within
-3.intersect
+1.throughout:  used to check whether boolean signal or Boolean expression lies inside the sequence 
+2.within    :  used to verify whether our test sequence lies inside the reference sequence
+3.intersect: Same start and end points
 */
 
 
