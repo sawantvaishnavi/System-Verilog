@@ -144,8 +144,14 @@ Repetion Operator:
 */
 /*
 Boolean Operator:
-1.and
+1.and  : evaluate when lonest sequence evaluated true
+2.or   : evaluated when smallest sequence evaluated true
+3.not
 
+Matching Operator:
+1.throughout
+2.within
+3.intersect
 */
 
 
