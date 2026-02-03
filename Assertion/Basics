@@ -4,6 +4,14 @@ Type of assertion:
   2.Observed deffered immediate assertion:    assert #0
   3.Final deffered immediate assertion:       assert final
   4.Concurrent assertion:                     assert property
+
+1.Simple immediate assertion:
+It evaluates an expression As soon as it see the changes, it won't allow the signal to settle down.
+
+2.Observed deffered immediate assertion:
+observed deferred immediate assertion works in the observed region, which is after our active region, so we can see all the blocking assignment.
+Non-blocking assignment and continuous assignment statements are well settled.
+Hence we can remove the simulation glitches that we have in the previous list, so we do not need to worry about our priority.
 */
 /*
 
