@@ -16,10 +16,10 @@ endmodule
 
 
 /*- Here array initilization is important as variable j is taking value from there.
-- j is initilizaed as 10 but he takes value from 0 to 0.*/
+- j is initilizaed as 10 but he takes value from 0 to 9.*/
 module tb ();
  
-  int arr [10];
+  int arr [10];      //it means --> arr[0:9]  --> starting from 0 end on 9    //to print reverse order use [9:0]
  
   
   initial begin
