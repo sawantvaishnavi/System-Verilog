@@ -15,7 +15,7 @@ module tb();
     $display("arr =  %0p", arr);
   
     arr.delete();
-    $display("arr =  %0p", arr);  //after deleting empty array you will get
+    $display("arr =  %0p", arr);  //after deleting empty array you will get --> arr = '{}
     
     for(int i =0; i<5; i++) begin
       arr [i] = 5*i;
