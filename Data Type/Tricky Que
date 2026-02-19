@@ -1,0 +1,49 @@
+Q1. What will this print?
+
+int arr[5];
+initial begin
+  $display("%0d", arr.size());
+  arr = '{1,2,3};
+  $display("%0d", arr.size());
+end
+
+Ans: this is an error. First it prints 5, then gives a compile-time error because static array size (5) cannot be assigned with 3 elements.
+SystemVerilog requires exact size match for static array assignment.
+
+Q1.b what if arr is dynamic arry?
+int arr[];   // dynamic array
+initial begin
+  arr = '{1,2,3};
+  $display("Size = %0d", arr.size());
+end
+
+Ans: it will copy and give size as 3.
+
+Q2.what will print?
+int a[] = '{1,2,3};
+int b[];
+initial begin
+  b = a;
+  b[0] = 100;
+  $display("%p", a);
+end
+
+Ans: [1, 2, 3]
+In SystemVerilog, dynamic arrays use deep copy assignment.
+That means:
+Memory of a is copied into b
+b gets its own separate memory
+They do NOT share the same storage
+
+after b=a  a → [1 2 3]  b → [1 2 3]  Two separate memory blocks.
+now b[0] = 100 so b → [100 2 3] and a remains same.
+
+Q3.  What will this print?
+int arr[];
+initial begin
+  $display(arr.size());
+end
+
+Ans: 0
+arr is a dynamic array It is declared but not allocated
+Unallocated dynamic array has size = 0
