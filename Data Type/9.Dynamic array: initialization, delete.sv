@@ -20,7 +20,7 @@ module tb();
     for(int i =0; i<5; i++) begin
       arr [i] = 5*i;
     end
-    $display("arr =  %0p", arr);  // num bez you are trying to write in empty array.
+    $display("arr =  %0p", arr);  // empty bez you are trying to write in empty array.
   end
   
 endmodule
