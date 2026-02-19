@@ -10,7 +10,6 @@ module tb ();
  
   int status;
   
-  
   initial begin 
     arr2 = arr1;  //copying array
     $display("arr2 = %p", arr2);
