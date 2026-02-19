@@ -47,3 +47,61 @@ end
 Ans: 0
 arr is a dynamic array It is declared but not allocated
 Unallocated dynamic array has size = 0
+
+Q4. Which is faster in simulation? 1.Static array 2.Dynamic array 3.Associative array 4.Queue
+Ans. 
+1.Static Array (Fastest)
+Fixed size
+Contiguous memory
+No resizing
+No runtime allocation
+Index access is direct
+Simulator knows size at compile time → very efficient.
+
+2.Dynamic Array
+Size decided at runtime
+Memory allocated on heap
+Still contiguous memory
+Slight overhead for allocation and resizing
+Access is still fast (like static), but allocation adds overhead.
+
+3.Queue
+Dynamic structure
+Supports push_front, pop_front, insert, delete
+Elements may shift during operations
+Extra management logic → slower than dynamic array.
+
+4.Associative Array (Slowest)
+Implemented like hash table
+Keys can be int, string, etc.
+Memory not contiguous
+Needs hashing and lookup logic
+Flexible, but more computational work → slowest.
+
+Summary:
+Static array is fastest because it has fixed size and contiguous memory.
+Dynamic array is slightly slower due to runtime allocation.
+Queue is slower because of resizing and shifting operations.
+Associative array is slowest due to hashing and non-contiguous memory.
+
+
+Q5. Where are dynamic arrays stored?
+Ans:
+Dynamic arrays are stored in the simulator’s heap memory. Not stack.
+
+Explanation:
+Static arrays → allocated at compile time (fixed memory region)
+Dynamic arrays → allocated at runtime using heap
+
+When you write:
+arr = new[10];
+The simulator allocates memory from heap.
+
+Important:
+SystemVerilog simulation memory is managed by the simulator, not like real hardware RAM. But conceptually:
+
+Static array → fixed memory
+Dynamic array → heap memory
+Class objects → heap memory
+Queue → heap memory
+Associative array → heap memory
