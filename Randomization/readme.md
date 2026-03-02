@@ -48,7 +48,7 @@ endmodule
 - `1` → if randomization is successful
 - `0` → if randomization fails (due to constraint conflict)
 
-  ### Code
+### Code
 ```systemverilog
 class generator;
   randc bit [7:0] a;
@@ -78,6 +78,7 @@ endmodule
 ---
 
 ## Q3. Write a SystemVerilog program that demonstrates how to apply a range constraint and how to exclude (skip) a specific range during randomization.
+### Answer:
 ### Code1️⃣: Constrain a Variable Within a Range : inside operator
 ```systemverilog
 class generator ;
@@ -127,6 +128,63 @@ module tb;
     for(int i=0; i<10; i++) begin
       g.randomize();
       $display("At Time=%0t, Value of A=%0d, B=%0d", $time, g.a, g.b);
+      #10;
+    end
+  end
+endmodule
+```
+---
+## Q4. Are constraints in SystemVerilog limited to class scope, or can they be declared outside a class?
+
+### Answer:
+Constraint blocks must belong to a class. However, they can be declared inside the class and defined outside using the `extern` keyword and scope resolution operator.
+
+## Coding Question:
+Write a SystemVerilog class `transaction` with two random variables `addr` and `data`.
+
+1. Declare a constraint inside the class using `extern`.
+2. Define the constraint outside the class using the scope resolution operator.
+3. Ensure:
+   - addr is between 10 and 20
+   - data is an even number
+4. Declare a `display()` function using `extern` inside the class and define it outside the class.
+5. In the testbench, randomize the object 5 times and display the values using the display function.
+
+### Code:
+```systemverilog
+class transaction;
+ 
+  randc bit [7:0] addr;
+  randc bit [7:0] data;
+  
+  extern constraint addr_data_valid ;
+  
+  extern function void display();
+    
+endclass
+   
+    constraint transaction::addr_data_valid{
+    
+      addr inside {[10:20]};
+      data % 2 == 0;
+      
+    };
+    
+    function void transaction::display ();
+      $display("Addr=%0d, Data=%0d", addr, data);
+    endfunction
+    
+module tb();
+  transaction t;
+  
+  initial begin
+    t = new();
+    
+    for(int i=0; i<5; i++) begin
+      if(!t.randomize())
+        $display("Randomization Failed");
+      else
+        t.display();
       #10;
     end
   end
