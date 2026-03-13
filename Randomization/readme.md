@@ -219,8 +219,6 @@ It is used to:
 3. Check relationships
 4. Update dependent variables
 
-  ## SystemVerilog Randomization Example
-
 ### Question
 
 Write a SystemVerilog class `packet` with the following requirements:
@@ -266,3 +264,49 @@ module tb;
 endmodule
 ```
 --- 
+## Q5. What is Weighted Distribution (dist) in SystemVerilog?
+SystemVerilog provides two operators for weighted distribution inside `dist` constraints:
+1. `:=`
+2. `:/`
+
+### 1️⃣ `:=` (Per Value Weight)
+The `:=` divide weight equally to each value in the range individually.
+
+Example: A 2-bit select line `sel` has the combinations **00, 01, 10, and 11**.
+
+Suppose the weighted distribution constraint is written as:
+
+```systemverilog
+sel dist { 2'b00 := 10, [1:3] := 50 };
+```
+
+So it expands to:
+sel dist { 2'b00 := 10, 2'b01 := 50, 2'b10 := 50, 2'b11 := 50 };
+
+and ,
+P[0] = 10/160
+P[1] = 50/160
+P[2] = 50/160
+P[3] = 50/160
+
+
+
+
+### 2️⃣ :/ (Distributed Weight)
+The :/ distributes the given weight across the entire range equally.
+Suppose the weighted distribution constraint is written as:
+
+```systemverilog
+sel dist { 2'b00 :/ 10, [1:3] :/ 60 };
+```
+
+So it expands to:
+sel dist { 2'b00 :/ 10, 2'b01 :/ 20, 2'b10 :/ 20, 2'b11 :/ 20 };
+
+and ,
+P[0] = 10/70
+P[1] = 20/70
+P[2] = 20/70
+P[3] = 20/70
+
+---
