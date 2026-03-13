@@ -191,3 +191,78 @@ module tb();
 endmodule
 ```
 ---
+## Q4. What is the difference between `pre_randomize()` and `post_randomize()` in SystemVerilog?
+
+### Answer
+
+### 1️⃣ pre_randomize()
+
+`pre_randomize()` is a function that runs automatically **before randomization**.
+
+It is typically used to:
+
+1. Initialize variables  
+2. Enable/disable constraints  
+3. Set values that affect constraints  
+4. Prepare the object before randomization  
+
+---
+
+### 2️⃣ post_randomize()
+
+`post_randomize()` runs automatically **after randomization completes successfully**.
+
+It is used to:
+
+1. Display generated values  
+2. Perform calculations
+3. Check relationships
+4. Update dependent variables
+
+  ## SystemVerilog Randomization Example
+
+### Question
+
+Write a SystemVerilog class `packet` with the following requirements:
+
+1. The class contains two random variables:
+rand bit [3:0] addr  
+rand bit [3:0] data  
+2. Add a constraint such that: addr < data
+3. Use `pre_randomize()` to: Print the message **"Randomization Starting"**
+4. Use `post_randomize()` to: Display the randomized values of `addr` and `data`
+5. In the testbench: Create an object of the class and call `randomize()`.
+
+```systemverilog
+class packet;
+  
+  rand bit [3:0] addr;
+  rand bit [3:0] data;
+  
+  constraint addr_data {
+    addr < data;
+  }
+
+  function void pre_randomize();
+    $display("Randomization Starting");
+  endfunction
+  
+  function void post_randomize();
+    $display("Values of ADDR=%0d DATA=%0d", addr, data);
+  endfunction
+  
+endclass
+
+
+module tb;
+  
+  packet p;
+
+  initial begin
+    p = new();
+    p.randomize(); 
+  end
+
+endmodule
+```
+--- 
