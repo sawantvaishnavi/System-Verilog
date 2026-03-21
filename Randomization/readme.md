@@ -193,7 +193,7 @@ endmodule
 ---
 ## Q4. What is the difference between `pre_randomize()` and `post_randomize()` in SystemVerilog?
 
-### Answer
+### Answer:
 
 ### 1️⃣ pre_randomize()
 
@@ -310,3 +310,152 @@ P[2] = 20/70
 P[3] = 20/70
 
 ---
+## Q6. SystemVerilog Randomization
+
+### Problem
+
+In a DRAM controller, the supported burst types are:
+
+* `FIXED`
+* `INCR`
+* `WRAP`
+
+The burst selection should follow these rules:
+
+* `INCR` → 60%
+* `WRAP` → 30%
+* `FIXED` → 10%
+
+However, if the address is **4KB aligned** (`addr[11:0] == 0`), then:
+
+* Force the burst type to be `WRAP`
+
+## Answer:
+
+```systemverilog
+typedef enum {FIXED, INCR, WRAP} burst_t;
+
+class packet;
+
+  rand bit [31:0] addr;
+  rand burst_t burst;
+  
+  constraint data {
+  
+    // If address is 4KB aligned → force WRAP
+    if (addr[11:0] == 12'b0)
+      burst == WRAP;
+    
+    else
+      burst dist {
+        INCR  := 60,
+        WRAP  := 30,
+        FIXED := 10
+      };
+  }
+
+endclass
+
+
+module tb;
+  
+  packet pkt;
+  
+  initial begin
+    pkt = new();
+    
+    repeat (100) begin
+      
+      assert(pkt.randomize());
+      
+      $display("ADDR = %0h | BURST = %0s",
+                pkt.addr, pkt.burst.name());
+      
+      // Assertion check
+      if (pkt.addr[11:0] == 12'b0) begin
+        assert (pkt.burst == WRAP)
+          else $error("Aligned addr violation! ADDR=%h BURST=%s",
+                       pkt.addr, pkt.burst.name());
+      end
+      
+    end
+  end
+    
+endmodule
+```
+
+---
+
+## Q7. SystemVerilog Randomization
+
+### Problem
+
+You are generating 32-bit memory addresses for a DRAM system.
+
+
+### Requirements
+
+1. Address range is:
+
+   * `0x0000_0000` to `0xFFFF_FFFF`
+
+2. The following region is **reserved** and must NOT be generated:
+
+   * `0x1000_0000` to `0x1FFF_FFFF`
+
+3. Additionally, **20% of generated addresses** should be **boundary values**, i.e.:
+
+   * Start or end of valid regions
+
+## Answer:
+
+```systemverilog id="code_q8_md"
+class dram_addr;
+  
+  rand bit [31:0] addr;
+  rand bit is_boundary;
+  
+  // Exclude reserved region
+  constraint addr_range_restricted {
+    !(addr inside {[32'h1000_0000 : 32'h1FFF_FFFF]});
+  }
+  
+  // 20% boundary, 80% normal
+  constraint boundary_dist {
+    is_boundary dist {1 := 20, 0 := 80};
+  }
+  
+  // Boundary constraint
+  constraint addr_c {
+    if (is_boundary)
+      addr inside {
+        32'h0000_0000,
+        32'h0FFF_FFFF,
+        32'h2000_0000,
+        32'hFFFF_FFFF
+      };
+  }
+
+endclass
+
+
+module tb;
+
+  dram_addr da;
+
+  initial begin
+    da = new();
+
+    repeat (100) begin
+      da.randomize();
+      $display("ADDR = %0h | is_boundary = %0d",
+                da.addr, da.is_boundary);
+    end
+  end
+
+endmodule
+```
+
+---
+
+
