@@ -86,3 +86,36 @@ module top;
   end
 endmodule
 
+
+
+///3. best expample to understand super keyword. 
+// it will go to one class above current class and display , after endfunction will come to current class and execute next line of super keyword line
+//Try to remove super keyword line and ckeck code, also write super after  $display("Data = %0d", data); this and check output
+
+class parent_class;
+  bit [3:0] addr;
+  
+  function void display();
+    $display("Addr = %0d", addr);
+  endfunction
+endclass
+
+class child_class extends parent_class;
+  bit [3:0] data;
+  
+  function void display();
+    super.display();
+    $display("Data = %0d", data);
+    
+  endfunction
+endclass
+
+module tb();
+  
+  initial begin
+    child_class c = new();
+    c.addr = 10;
+    c.data = 20;
+    c.display();
+  end
+endmodule
