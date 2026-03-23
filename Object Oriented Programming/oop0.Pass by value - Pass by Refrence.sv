@@ -10,7 +10,7 @@ module tb();
   
   initial begin
     int a=5;
-    pass_by_value(a);  //copy of a is send to x
+    pass_by_value(a);  
     $display("Outside task a=%0d", a);
   end
 endmodule
