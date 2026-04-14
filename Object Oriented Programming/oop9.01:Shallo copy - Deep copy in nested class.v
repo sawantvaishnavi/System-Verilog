@@ -147,3 +147,67 @@ class packet;
       
     end
   endmodule
+
+//more simple to understand deep copy
+class first;
+  bit [3:0] data;
+  bit [3:0] addr;
+  
+  function first copy();
+    copy = new();
+    copy.data = this.data;
+    copy.addr = this.addr;
+    return copy;
+  endfunction
+  
+endclass
+
+class second;
+  bit [3:0] new_data;
+  bit [3:0] new_addr; 
+  
+  first f;
+  
+  function new ();
+    f = new();
+  endfunction
+  
+  function second copy();
+    copy          = new();
+    copy.new_data = this.new_data;
+    copy.new_addr = this.new_addr;
+    copy.f        = f.copy;
+    return copy;
+  endfunction
+  
+endclass
+
+module tb;
+  
+  second s1, s2;
+  
+  initial begin
+    s1 = new();
+    
+    s1.f.data = 1;
+    s1.f.addr = 2;
+    s1.new_data = 3;
+    s1.new_addr = 4;
+    
+    $display("--------------------------------------------------------------");
+    $display("data = %0d, addr = %0d, new_data = %0d, new_addr = %0d", s1.f.data, s1.f.addr, s1.new_data, s1.new_addr);
+    
+    $display("--------------------------------------------------------------");
+    $display("               Deep Copy                        ");
+    
+    s2 = s1.copy();  //deep copy
+    $display("data = %0d, addr = %0d, new_data = %0d, new_addr = %0d", s2.f.data, s2.f.addr, s2.new_data, s2.new_addr);
+    
+    $display("--------------------------------------------------------------");
+    $display("               Internal objects changed                        ");
+    s2.f.data = 14;
+    s2.f.addr = 15;
+    $display("S1: data = %0d, S1: addr = %0d, S2: data = %0d, S2: addr = %0d, S1: new_data = %0d, s1: new_addr = %0d, S2: new_data = %0d, S2: new_addr = %0d", s1.f.data, s1.f.addr, s2.f.data, s2.f.addr, s1.new_data, s1.new_addr, s2.new_data, s2.new_addr);
+    $display("--------------------------------------------------------------");
+  end
+endmodule
